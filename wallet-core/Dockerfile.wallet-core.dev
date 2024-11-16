@@ -1,0 +1,14 @@
+FROM golang:1.23
+
+WORKDIR /app/
+
+COPY . .
+
+RUN apt-get update && apt-get install -y librdkafka-dev \
+    && go mod tidy \
+    && go mod download \
+    && go build -o main ./cmd/main.go
+
+EXPOSE 8080
+
+CMD ["./main"]

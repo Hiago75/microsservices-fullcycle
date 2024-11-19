@@ -29,7 +29,8 @@ func (h *WebClientHandler) CreateClient(w http.ResponseWriter, r *http.Request) 
 	output, err := h.CreateClientUseCase.Execute(dto)
 
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusAlreadyReported)
+		json.NewEncoder(w).Encode(err.Error())
 		return
 	}
 
@@ -37,7 +38,8 @@ func (h *WebClientHandler) CreateClient(w http.ResponseWriter, r *http.Request) 
 	err = json.NewEncoder(w).Encode(output)
 
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusForbidden)
+		json.NewEncoder(w).Encode(err.Error())
 		return
 	}
 

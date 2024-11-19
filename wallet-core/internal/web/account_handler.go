@@ -30,7 +30,8 @@ func (handler *WebAccountHandler) CreateAccount(w http.ResponseWriter, r *http.R
 	output, err := handler.CreateAccountUseCase.Execute(dto)
 
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusAlreadyReported)
+		json.NewEncoder(w).Encode(err.Error())
 		return
 	}
 
@@ -38,7 +39,8 @@ func (handler *WebAccountHandler) CreateAccount(w http.ResponseWriter, r *http.R
 	err = json.NewEncoder(w).Encode(output)
 
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusExpectationFailed)
+		json.NewEncoder(w).Encode(err.Error())
 		return
 	}
 

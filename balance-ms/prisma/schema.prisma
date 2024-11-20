@@ -11,7 +11,7 @@ generator client {
 model Account {
   id        String   @id @default(uuid())
   accountId String   @map("account_id")
-  amount    Decimal
+  balance    Decimal
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

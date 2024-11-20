@@ -3,9 +3,20 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     roots: ['<rootDir>/__tests__'],
-    transform: {
-      '^.+\\.tsx?$': 'ts-jest'
+    testRegex: '(/__tests__/.*\\.test\\.tsx?$|\\.(test)\\.tsx?$)',
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    setupFilesAfterEnv: ['<rootDir>/__tests__/database/repositories/prisma/prisma.singleton.ts'],
+    extensionsToTreatAsEsm: ['.ts'],
+    moduleNameMapper: {
+      '^@infra/(.*)$': '<rootDir>/src/infra/$1',
+      '^@domain/(.*)$': '<rootDir>/src/domain/$1'
     },
-    testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
-  };
+    transform: {
+      '^.+\\.tsx?$': [
+        'ts-jest',
+        {
+          useESM: true,
+        },
+      ],
+    },
+  }

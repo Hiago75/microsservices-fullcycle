@@ -1,6 +1,6 @@
-import AccountRepository from '@infra/database/repositories/prisma/AccountRepository'
+import AccountRepository from '@infra/database/repositories/prisma/account.repository'
 import { prismaMock } from './prisma.singleton'
-import Account from '@domain/entities/Account';
+import Account from '@domain/entities/account';
 
 describe('AccountRepositoryPrisma', () => {
   it("should not return the balance if the account does not exists", async () => {
@@ -8,7 +8,7 @@ describe('AccountRepositoryPrisma', () => {
 
     prismaMock.account.findUnique.mockResolvedValue(null)
 
-    await expect(sut.getBalance('account_id')).rejects.toThrow("Account not found");
+    await expect(sut.findById('account_id')).rejects.toThrow("Account not found");
   })
 
   it("should return the balance", async () => {
@@ -22,7 +22,7 @@ describe('AccountRepositoryPrisma', () => {
     prismaMock.account.findUnique.mockResolvedValue(account)
     
     const sut = new AccountRepository(prismaMock);
-    const result = await sut.getBalance('account_id');
+    const result = await sut.findById('account_id');
 
     expect(result.accountId).toBe('account_id');
     expect(result.balance).toBe(50)

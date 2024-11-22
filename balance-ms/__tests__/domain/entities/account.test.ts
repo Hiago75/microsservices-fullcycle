@@ -1,4 +1,4 @@
-import Account from "@domain/entities/Account";
+import Account from "@domain/entities/account";
 
 describe('Account', () => {
     it("should not create an account with invalid balance", () => {

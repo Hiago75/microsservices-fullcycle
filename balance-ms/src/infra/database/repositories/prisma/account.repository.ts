@@ -1,8 +1,8 @@
-import Account from "@domain/entities/Account";
+import Account from "@domain/entities/account";
 import { PrismaClient } from "@prisma/client";
-import BalanceRepositoryInterface from "src/domain/repositories/BalanceRepository.interface";
+import AccountRepositoryInterface from "src/domain/repositories/account.repository.interface";
 
-export default class AccountRepository implements BalanceRepositoryInterface {
+export default class AccountRepository implements AccountRepositoryInterface {
     constructor(private prisma: PrismaClient) {}
 
     async createAccount(accountId: string, balance: number): Promise<string> {
@@ -37,7 +37,7 @@ export default class AccountRepository implements BalanceRepositoryInterface {
         })
     }
 
-    async getBalance(accountId: string): Promise<Account> {
+    async findById(accountId: string): Promise<Account> {
         const accountDb = await this.prisma.account.findUnique({
             where : {
                 accountId: accountId

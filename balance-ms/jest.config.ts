@@ -9,7 +9,8 @@ module.exports = {
     extensionsToTreatAsEsm: ['.ts'],
     moduleNameMapper: {
       '^@infra/(.*)$': '<rootDir>/src/infra/$1',
-      '^@domain/(.*)$': '<rootDir>/src/domain/$1'
+      '^@domain/(.*)$': '<rootDir>/src/domain/$1',
+      '^@application/(.*)$': '<rootDir>/src/application/$1'
     },
     transform: {
       '^.+\\.tsx?$': [

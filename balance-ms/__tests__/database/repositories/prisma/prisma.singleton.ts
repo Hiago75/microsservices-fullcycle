@@ -1,8 +1,8 @@
 import { mockDeep, mockReset } from 'jest-mock-extended'
 import { PrismaClient } from '@prisma/client'
-import prisma from '@infra/database/prisma/PrismaClient'
+import prisma from '@infra/database/prisma/prisma.client'
 
-jest.mock('@infra/database/prisma/PrismaClient', () => ({
+jest.mock('@infra/database/prisma/prisma.client', () => ({
     __esModule: true,
     default: jest.fn(() => mockDeep<PrismaClient>())
 }))

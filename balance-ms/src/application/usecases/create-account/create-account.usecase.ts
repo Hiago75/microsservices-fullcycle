@@ -1,7 +1,8 @@
 import AccountRepositoryInterface from "@domain/repositories/account.repository.interface";
 import { InputCreateAccountDTO, OutputCreateAccountDTO } from "./create-account.dto";
+import BaseServiceInterface from "src/@shared/domain/base-service.interface";
 
-export default class CreateAccountUseCase {
+export default class CreateAccountUseCase implements BaseServiceInterface<InputCreateAccountDTO, OutputCreateAccountDTO> {
     constructor(private accountRepository: AccountRepositoryInterface) {}
 
     async execute(input: InputCreateAccountDTO): Promise<OutputCreateAccountDTO> {

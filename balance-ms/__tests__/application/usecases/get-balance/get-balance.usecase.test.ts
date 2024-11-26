@@ -1,5 +1,5 @@
 import Account from "@domain/entities/account"
-import GetBalanceUseCase from "@application/usecases/get-balance.usecase";
+import GetBalanceUseCase from "@application/usecases/get-balance/get-balance.usecase";
 
 describe("Unit test get balance use case", () => {
     const account = new Account(

@@ -63,6 +63,6 @@ describe('AccountRepositoryPrisma', () => {
 
     const result = await sut.createAccount('account_id', 50);
 
-    expect(result).toBe("new_account_id")
+    expect(result.id).toBe("new_account_id")
   })
 })

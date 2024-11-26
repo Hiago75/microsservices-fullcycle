@@ -5,7 +5,7 @@ import AccountRepositoryInterface from "src/domain/repositories/account.reposito
 export default class AccountRepository implements AccountRepositoryInterface {
     constructor(private prisma: PrismaClient) {}
 
-    async createAccount(accountId: string, balance: number): Promise<string> {
+    async createAccount(accountId: string, balance: number): Promise<Account> {
         const accountDb = await this.prisma.account.create({
             data: {
                 accountId: accountId,
@@ -13,7 +13,7 @@ export default class AccountRepository implements AccountRepositoryInterface {
             }
         })  
 
-        return accountDb.id
+        return accountDb
     }
 
     async updateBalance(accountId: string, balance: number): Promise<void> {

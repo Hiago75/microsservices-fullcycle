@@ -5,6 +5,6 @@ const balanceRouter = Router();
 
 const getBalanceController = GetBalanceFactory.create();
 
-balanceRouter.get("/:accountId", getBalanceController.handle);
+balanceRouter.get("/:accountId", getBalanceController.handle.bind(getBalanceController));
 
 export { balanceRouter };

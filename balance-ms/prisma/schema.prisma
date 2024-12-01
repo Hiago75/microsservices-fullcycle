@@ -9,7 +9,7 @@ generator client {
 
 model Account {
   id        String   @id @default(uuid())
-  accountId String   @map("account_id")
+  accountId String   @map("account_id") @unique
   balance    Decimal
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

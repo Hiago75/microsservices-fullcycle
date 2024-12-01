@@ -13,7 +13,12 @@ export default class AccountRepository implements AccountRepositoryInterface {
             }
         })  
 
-        return accountDb
+        return new Account(
+            accountDb.id,
+            accountDb.accountId,
+            accountDb.balance.toNumber(),
+            accountDb.updatedAt
+        )
     }
 
     async updateBalance(accountId: string, balance: number): Promise<void> {
@@ -51,7 +56,7 @@ export default class AccountRepository implements AccountRepositoryInterface {
         return new Account(
             accountDb.id,
             accountDb.accountId,
-            accountDb.balance,
+            accountDb.balance.toNumber(),
             accountDb.updatedAt
         )
     }   

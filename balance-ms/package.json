@@ -4,12 +4,15 @@
   "description": "Balance Microservice for Digital Wallet",
   "main": "index.js",
   "scripts": {
-    "start": "node --import=tsx ./src/main.ts",
+    "start": "prisma generate && node --import=tsx ./src/main.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:seed": "ts-node prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "author": "",
   "license": "ISC",

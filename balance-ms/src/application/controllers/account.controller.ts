@@ -3,7 +3,7 @@ import { InputGetBalanceDTO, OutputGetBalanceDTO } from "@application/usecases/g
 import BaseControllerInterface from "src/@shared/domain/base-controller.interface";
 import BaseServiceInterface from "src/@shared/domain/base-service.interface";
 
-export default class GetBalanceController implements BaseControllerInterface {
+export default class AccountController implements BaseControllerInterface {
     constructor(private balanceService: BaseServiceInterface<InputGetBalanceDTO, OutputGetBalanceDTO>) {}
 
     async handle(request: Request, response: Response): Promise<void> {

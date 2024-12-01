@@ -1,12 +1,11 @@
 import express from 'express';
+import { router } from '@infra/http/routes';
 
 const app = express();
-const port = 3003;
+app.use(express.json());
+app.use(router);
 
-app.get('/', (req, res) => {
-    console.log("Server is open to requests");
-    res.send("Hello World!");
-});
+const port = 3003;
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

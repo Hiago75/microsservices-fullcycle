@@ -1,2 +1,7 @@
-GET http://localhost:3003/ HTTP/1.1
+// Account from
+GET http://localhost:3003/balances/3392a646-d26b-4d9b-b9b7-b7c3e5901c7a HTTP/1.1
+
 ###
+
+//Account to
+GET http://localhost:3003/balances/e8384256-fba8-42f6-9643-3e22fea4f088 HTTP/1.1

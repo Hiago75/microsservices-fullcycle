@@ -1,4 +1,4 @@
-import CreateAccountUseCase from "@application/usecases/create-account/create-account.usecase";
+import UpdateBalanceUseCase from "@application/usecases/update-balance/update-balance.usecase";
 import Account from "@domain/entities/account";
 
 describe("Unit test create account use case", () => {
@@ -26,7 +26,7 @@ describe("Unit test create account use case", () => {
 
     it("should not create an account with invalid balance", async () => {
         const accountRepository = mockRepository();
-        const useCase = new CreateAccountUseCase(accountRepository);
+        const useCase = new UpdateBalanceUseCase(accountRepository);
 
         const input = {
             accountId: "account_id",
@@ -38,7 +38,7 @@ describe("Unit test create account use case", () => {
 
     it("should not create an account with invalid account id", async () => {
         const accountRepository = mockRepository();
-        const useCase = new CreateAccountUseCase(accountRepository);
+        const useCase = new UpdateBalanceUseCase(accountRepository);
 
         accountRepository.findById.mockReturnValue(Promise.resolve(account));
 
@@ -52,7 +52,7 @@ describe("Unit test create account use case", () => {
 
     it("should create an account", async () => {
         const accountRepository = mockRepository();
-        const useCase = new CreateAccountUseCase(accountRepository);
+        const useCase = new UpdateBalanceUseCase(accountRepository);
 
         accountRepository.findById.mockReturnValue(Promise.resolve(undefined));
 

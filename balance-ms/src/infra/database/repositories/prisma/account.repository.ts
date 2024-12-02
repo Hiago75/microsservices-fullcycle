@@ -21,25 +21,26 @@ export default class AccountRepository implements AccountRepositoryInterface {
         )
     }
 
-    async updateBalance(accountId: string, balance: number): Promise<void> {
-        const accountDb = await this.prisma.account.findUnique({
-            where : {
-                accountId: accountId
-            }
-        })
-
-        if (accountDb === null) {
-            throw new Error("Account not found")
-        }
-
-        await this.prisma.account.update({
+    async updateBalance(accountId: string, balance: number): Promise<Account> {
+        const updatedAccount = await this.prisma.account.upsert({
             where : {
                 accountId: accountId
             },
-            data: {
+            update: {
+                balance: balance
+            },
+            create: {
+                accountId: accountId, 
                 balance: balance
             }
         })
+
+        return new Account(
+            updatedAccount.id,
+            updatedAccount.accountId,
+            updatedAccount.balance.toNumber(),
+            updatedAccount.updatedAt
+        );
     }
 
     async findById(accountId: string): Promise<Account> {

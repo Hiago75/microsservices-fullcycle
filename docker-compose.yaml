@@ -10,8 +10,10 @@ services:
       - "8080:8080"
     restart: unless-stopped
     depends_on:
-      - mysql-wallet
-      - kafka
+      control-center:
+        condition: service_healthy
+      mysql-wallet:
+        condition: service_started
 
   balance-ms:
     profiles: [""]
@@ -22,8 +24,10 @@ services:
       - "3003:3003"
     restart: unless-stopped
     depends_on:
-      - mysql-balance-ms
-      - kafka
+      control-center:
+        condition: service_healthy
+      mysql-balance-ms:
+        condition: service_started
 
   mysql-wallet:
     image: mysql:5.7
@@ -32,6 +36,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wallet
       MYSQL_PASSWORD: root
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     volumes:
@@ -96,6 +101,11 @@ services:
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 9021 || exit 1"]
+      interval: 20s
+      timeout: 20s
+      retries: 5
 
   wallet-core-dev:
     profiles: ["dev"]

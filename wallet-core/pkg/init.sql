@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS clients (
+USE wallet;
+
+cCREATE TABLE IF NOT EXISTS clients (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255),
     email VARCHAR(255),

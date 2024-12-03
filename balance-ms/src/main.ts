@@ -11,7 +11,7 @@ app.use(router);
 async function startServer() {
     const kafkaService = new KafkaService(
         'balance-ms',
-        ['localhost:9092']
+        ['kafka:29092']
     )
     
     const updateBalanceUseCase = UpdateBalanceFactory.create();

@@ -36,7 +36,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wallet
       MYSQL_PASSWORD: root
-    command: --init-file /docker-entrypoint-initdb.d/init.sql
+    command: --bind-address=0.0.0.0 --init-file /docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     volumes:
@@ -50,6 +50,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: balance-ms
       MYSQL_PASSWORD: root
+    command: --bind-address=0.0.0.0
     ports:
       - "3307:3306"
     volumes:

@@ -1,6 +1,6 @@
 datasource db {
     provider = "mysql"
-    url      = env("DATABASE_URL")
+    url      = "mysql://root:root@mysql-balance-ms/balance-ms?schema=public"
 }
 
 generator client {

@@ -4,7 +4,7 @@
   "description": "Balance Microservice for Digital Wallet",
   "main": "index.js",
   "scripts": {
-    "start": "prisma generate && node --import=tsx ./src/main.ts",
+    "start": "prisma generate && npm run prisma:migrate && npm run prisma:seed && node --import=tsx ./src/main.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "prisma:generate": "prisma generate",

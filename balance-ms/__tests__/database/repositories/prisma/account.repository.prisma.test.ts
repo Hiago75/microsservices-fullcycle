@@ -1,6 +1,7 @@
 import AccountRepository from '@infra/database/repositories/prisma/account.repository'
 import { prismaMock } from './prisma.singleton'
 import Account from '@domain/entities/account';
+import { Decimal } from '@prisma/client/runtime/library';
 
 describe('AccountRepositoryPrisma', () => {
   it("should not return the balance if the account does not exists", async () => {
@@ -15,7 +16,8 @@ describe('AccountRepositoryPrisma', () => {
     const account = {
       id: 'id',
       accountId: 'account_id',
-      balance: 50,
+      balance: new Decimal(50),
+      createdAt: new Date(),
       updatedAt: new Date()
     }
 
@@ -29,25 +31,18 @@ describe('AccountRepositoryPrisma', () => {
     expect(result.updatedAt).toBeInstanceOf(Date)    
   })
   
-  it("should not update the balance if the account does not exists", async () => {
-    const sut = new AccountRepository(prismaMock);
-
-    prismaMock.account.findUnique.mockResolvedValue(null)
-
-    await expect(sut.updateBalance('account_id', 30)).rejects.toThrow("Account not found");
-  })
-  
   it('should update the balance', async () => {
     const sut = new AccountRepository(prismaMock);
 
-    const account = new Account(
-      'id',
-      'account_id',
-      50,
-      new Date()
-    )
+    const account = {
+      id: 'account_id',
+      accountId: 'account_id',
+      balance: new Decimal(50),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
 
-    prismaMock.account.findUnique.mockResolvedValue(account)
+    prismaMock.account.upsert.mockResolvedValue(account)
 
     expect(sut.updateBalance('account_id', 50)).resolves.not.toThrow()
   })
@@ -56,7 +51,11 @@ describe('AccountRepositoryPrisma', () => {
     const sut = new AccountRepository(prismaMock); 
 
     const account = {
-      id: "new_account_id"
+      id: 'new_account_id',
+      accountId: 'account_id',
+      balance: new Decimal(50),
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
 
     prismaMock.account.create.mockResolvedValue(account)

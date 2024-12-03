@@ -1,25 +1,25 @@
 import UpdateBalanceUseCase from "@application/usecases/update-balance/update-balance.usecase";
 import Account from "@domain/entities/account";
 
-describe("Unit test create account use case", () => {
+describe("Unit test update balance use case", () => {
     const account = new Account(
         "id",
         "accountId",
         50,
-        new Date()
+        new Date(),
     );
 
     const newAccount = new Account(
         "id",
         "account_id",
         50,
-        new Date()
+        new Date(),
     )
 
     const mockRepository = () => {
         return {
-            createAccount: jest.fn().mockReturnValue(newAccount),
-            updateBalance: jest.fn(),
+            createAccount: jest.fn(),
+            updateBalance: jest.fn().mockReturnValue(newAccount),
             findById: jest.fn()
         }
     }
@@ -34,20 +34,6 @@ describe("Unit test create account use case", () => {
         }
 
         await expect(useCase.execute(input)).rejects.toThrow("Invalid balance");
-    })
-
-    it("should not create an account with invalid account id", async () => {
-        const accountRepository = mockRepository();
-        const useCase = new UpdateBalanceUseCase(accountRepository);
-
-        accountRepository.findById.mockReturnValue(Promise.resolve(account));
-
-        const input = {
-            accountId: "accountId",
-            balance: 50
-        }
-
-        await expect(useCase.execute(input)).rejects.toThrow("Account already exists");
     })
 
     it("should create an account", async () => {
